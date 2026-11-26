@@ -8,7 +8,7 @@ const CODIGOS_BD_CAIDA = new Set([
 ]);
 
 function noEncontrado(req, _res, next) {
-  next(new HttpError(404, 'RUTA_NO_ENCONTRADA', 'Ruta no encontrada.'));
+  next(new HttpError(404, 'ENDPOINT_NO_ENCONTRADO', 'Endpoint no encontrado.'));
 }
 
 // eslint-disable-next-line no-unused-vars

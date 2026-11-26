@@ -20,5 +20,7 @@ router.use('/unidades-medida', require('./unidades.routes'));
 router.use('/categorias', require('./categorias.routes'));
 router.use('/productos', require('./productos.routes'));
 router.use('/inventario', require('./inventario.routes'));
+router.use('/rutas', require('./rutas.routes'));
+router.use('/clientes', require('./clientes.routes'));
 
 module.exports = router;

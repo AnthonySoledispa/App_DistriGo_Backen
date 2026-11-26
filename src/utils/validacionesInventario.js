@@ -309,6 +309,8 @@ function filtrosAlertas(q) {
 }
 
 module.exports = {
+  texto, textoOpcional, validarEnumerado,
+  filtroBuscar, filtroEstado, filtroId, filtroEntero, filtroFecha, filtroBooleano,
   MOTIVOS_AJUSTE, MOTIVOS_AUMENTO, MOTIVOS_DISMINUCION, TIPOS_AJUSTE,
   validarCantidad, validarPrecio, validarSku, validarIdFK, errorPorUnidad, validarCampos,
   validarCamposUnidad, validarCamposCategoria, validarCamposProducto,

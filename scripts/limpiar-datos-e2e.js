@@ -1,6 +1,6 @@
 'use strict';
 // Borra los datos de las pruebas E2E del panel (producto, categoria o unidad cuyo nombre empieza por "E2E ")
-// en una sola transaccion. Orden: movimientos_inventario, lotes, productos, categorias, unidades_medida.
+// en una sola transaccion. Orden: clientes, rutas, movimientos_inventario, lotes, productos, categorias, unidades_medida.
 // NO toca la tabla usuarios. Imprime solo los conteos borrados por tabla.
 // Codigo de salida: 0 si todo va bien, 1 si falla (la transaccion se revierte).
 const { pool, conTransaccion } = require('../src/config/db');
@@ -14,6 +14,10 @@ async function limpiar() {
   return conTransaccion(async (c) => {
     const ejecutar = async (sql, params) => (await c.execute(sql, params))[0].affectedRows;
     const conteos = {};
+    conteos.clientes = await ejecutar('DELETE FROM clientes WHERE nombre LIKE ?', [PATRON]);
+    // Una tienda real asignada a una ruta E2E no debe abortar la limpieza (FK RESTRICT): queda sin ruta.
+    await ejecutar('UPDATE clientes c JOIN rutas r ON r.id = c.ruta_id SET c.ruta_id = NULL WHERE r.nombre LIKE ?', [PATRON]);
+    conteos.rutas = await ejecutar('DELETE FROM rutas WHERE nombre LIKE ?', [PATRON]);
     conteos.movimientos_inventario = await ejecutar(
       `DELETE m FROM movimientos_inventario m JOIN productos p ON p.id = m.producto_id ${UNIONES} ${CONDICION}`, PARAMS_PRODUCTO);
     conteos.lotes = await ejecutar(

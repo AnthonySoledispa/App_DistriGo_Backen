@@ -539,8 +539,8 @@ describe('Modulo 2: productos e inventario', () => {
   });
 
   test('P2-31 los movimientos son inmutables (sin PUT ni DELETE)', async () => {
-    fallo(await api('PUT', '/inventario/movimientos/1', { cuerpo: {} }), 404, 'RUTA_NO_ENCONTRADA');
-    fallo(await api('DELETE', '/inventario/movimientos/1'), 404, 'RUTA_NO_ENCONTRADA');
+    fallo(await api('PUT', '/inventario/movimientos/1', { cuerpo: {} }), 404, 'ENDPOINT_NO_ENCONTRADO');
+    fallo(await api('DELETE', '/inventario/movimientos/1'), 404, 'ENDPOINT_NO_ENCONTRADO');
   });
 
   // ---------- Alertas ----------
