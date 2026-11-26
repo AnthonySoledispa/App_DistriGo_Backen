@@ -20,6 +20,7 @@ function manejarErrores(err, _req, res, _next) {
     estado = err.estado;
     cuerpo = { ok: false, codigo: err.codigo, mensaje: err.message };
     if (err.errores) cuerpo.errores = err.errores;
+    if (err.detalles) cuerpo.detalles = err.detalles;
   } else if (err && err.type === 'entity.parse.failed') {
     estado = 400;
     cuerpo = { ok: false, codigo: 'JSON_INVALIDO', mensaje: 'El cuerpo de la solicitud no es un JSON valido.' };

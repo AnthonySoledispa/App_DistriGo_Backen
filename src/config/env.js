@@ -26,6 +26,16 @@ if (jwtSecret.length < 32) {
   throw new Error('JWT_SECRET falta o tiene menos de 32 caracteres. Configure el archivo .env (vea .env.example).');
 }
 
+function zonaHoraria(nombre, defecto) {
+  const zona = process.env[nombre] || defecto;
+  try {
+    new Intl.DateTimeFormat('es', { timeZone: zona });
+  } catch {
+    throw new Error(`Variable de entorno ${nombre} invalida: "${zona}" no es una zona horaria IANA valida.`);
+  }
+  return zona;
+}
+
 module.exports = Object.freeze({
   puerto: entero('PUERTO', 3000, { min: 0, max: 65535 }),
   host: process.env.HOST || '0.0.0.0',
@@ -48,6 +58,8 @@ module.exports = Object.freeze({
     maxIntentos: entero('LOGIN_MAX_INTENTOS', 10, { max: 100000 }),
     ventanaMinutos: entero('LOGIN_VENTANA_MINUTOS', 15, { max: 1440 }),
   }),
+  alertaCaducidadDias: entero('ALERTA_CADUCIDAD_DIAS', 15, { min: 1, max: 365 }),
+  zonaHorariaNegocio: zonaHoraria('ZONA_HORARIA_NEGOCIO', 'America/Guayaquil'),
   corsOrigenes: (process.env.CORS_ORIGENES || 'http://localhost:5173')
     .split(',').map((o) => o.trim()).filter(Boolean),
 });

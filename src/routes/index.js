@@ -16,5 +16,9 @@ router.get('/salud', async (_req, res) => {
 
 router.use('/auth', require('./auth.routes'));
 router.use('/usuarios', require('./usuarios.routes'));
+router.use('/unidades-medida', require('./unidades.routes'));
+router.use('/categorias', require('./categorias.routes'));
+router.use('/productos', require('./productos.routes'));
+router.use('/inventario', require('./inventario.routes'));
 
 module.exports = router;
